@@ -1,4 +1,12 @@
-// App.js
+// App.js - Main Logic + State Management
+// Holds state: expenses, editing item, search/filter values
+// Handles Create, Read, Update, Delete
+// Manages Search + Category Filtering
+// Uses localStorage to persist data
+// Passes props to children
+
+
+// Import dependencies: React hooks, UUID for unique ID generation, components, and CSS
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ExpenseForm from './components/ExpenseForm';
@@ -6,11 +14,13 @@ import ExpenseList from './components/ExpenseList';
 import './App.css';
 
 function App() {
-  const [expenses, setExpenses] = useState([]);
-  const [editingExpense, setEditingExpense] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
+  //States
+  const [expenses, setExpenses] = useState([]);   //expenses -list of all expense items
+  const [editingExpense, setEditingExpense] = useState(null);  //editingExpense - the item selected for editing
+  const [searchTerm, setSearchTerm] = useState('');  //searchTerm - user input for search
+  const [selectedCategory, setSelectedCategory] = useState('All');  //selectedCategory- usedropdown value
+ 
+  //useEffect – Load Expenses from Local Storage on Page load
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('expenses')) || [];
     setExpenses(stored);
